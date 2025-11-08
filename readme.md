@@ -2,6 +2,39 @@
 
 これはsubfileを使うLaTeX テンプレートです。
 
+## このテンプレートの使い方
+
+### リポジトリの作成
+
+このリポジトリは「テンプレート」として設定されています。
+fork や clone ではなく、右上の[Use this template]ボタンをクリックして、自分の新しいリポジトリを作成してください。
+
+ボタンを押すとリポジトリの作成オプションが出てきます。
+必ず決めないといけないのは以下の2つです。
+
+- Repository name: 自分の論文の管理名。GitHubのurlの一部になります。（例: master-thesis-2025）
+- Configuration: Private(非公開)にするかPublic(公開)にするか決めます。(推奨は Private)
+
+これを決めて[Create repository]ボタンを押すとあなたのリポジトリが作成されます。
+
+リポジトリをPrivateにしておくのを推奨としたのは、
+意図しない研究成果の流出や、剽窃のリスクを防ぐためです。
+
+指導教員など他の人と相談したい際には、
+GitHubのリポジトリの Setting の Collaborators から、
+相談したい人の GitHub アカウントを招待すると安全な方法です。
+
+### リポジトリのクローン(PCへのダウンロード)
+
+自分のGitHubのアカウントにリポジトリができたので、
+そのリポジトリを作業するパソコンへ「クローン」します。
+
+VS Code と GitHub アカウントを連携させておくと簡単です。
+
+1. VS Code を開き、ウェルカムページ（またはコマンドパレット）から「リポジトリのクローン (Git Clone)」を選択します。
+2. コピーしておいた URL を貼り付けるか、GitHub からのリポジトリ一覧で、先ほど作成したリポジトリを選択します。
+3. PC 上の保存場所を尋ねられるので、適切なフォルダを指定します。
+
 ## フォルダ構成
 
 このテンプレートは、以下のファイル配置となってます。
@@ -16,15 +49,24 @@
 ├── references.bib     # 参考文献
 │
 ├── chapter/
+    ├── 00_preface.tex
     ├── 01_introduction.tex
-    ├── 02_theory.tex
-    │    ...
+    │
     └── figures/
-        ├── system_diagram.pdf
-        └── result_graph.png
+        └── example_figure.png
 ```
 
 ## 新しい章を追加する方法
+
+結局これはTeXファイルなので、`main.tex`にそのまま章を追加して本文を書いても問題はありません。
+
+ただ、そうすると卒論のような長い文章を書くと、
+TeXファイルからpdfを作るコンパイルの時間がとても長くなります。
+
+`\subfile{}` を使う利点は `master.tex` から全体をコンパイルできるだけでなく、
+`01_introduction.tex` のような章ファイル単体を（VS Codeなどで）直接開いてコンパイルできることです。
+
+やり方としてもそんなに難しくなく、こんな感じでできます。
 
 1. `chapter/` フォルダ内に `03_new_chapter.tex` のようなファイルを作成します。
 2. `master.tex` を開き、`\subfile{}` コマンドが並んでいる箇所に、こんな感じで追記します。
@@ -35,19 +77,19 @@
     \subfile{chapter/03_new_chapter.tex} % ← この行を追加
     ```
 
-`\subfile{}` を使う利点は `master.tex` から全体をコンパイルできるだけでなく、
-`01_introduction.tex` のような章ファイル単体を（VS Codeなどで）直接開いてコンパイルできることです。
-
-文章が長くなってきた時、修正中の章だけをコンパイルすることで、待ち時間を短縮できるのでおすすめです。
-
 ## 図を挿入する方法
 
-`chapter/figures/` フォルダに画像ファイル（例: `my_graph.pdf`）を置きます。
+コンパイルが通れば図はどこにおいてもいいですが、
+`\subfile{}`によってファイルが分割されているため、
+コンパイラが図を見つけにくくエラーが出てしまうことがあります。
+
+分割したTeXファイルと同じ場所にあるとうまくいくと思われるので、
+こんな感じで`chapter/figures/` フォルダに画像ファイル（例: `example_figure.png`）を置いて読み込むといいです。
 
 ```latex
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/my_graph.pdf}
+    \includegraphics[width=0.8\linewidth]{figures/example_figure.png}
     \caption{私の研究結果のグラフ}
     \label{fig:my_graph}
 \end{figure}
