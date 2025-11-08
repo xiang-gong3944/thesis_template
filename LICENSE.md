@@ -1,5 +1,5 @@
 
-# MITライセンス
+# MIT LICENSE
 
 Copyright (c) 2025 西原翔
 
