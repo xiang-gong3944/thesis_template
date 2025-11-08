@@ -39,24 +39,24 @@ VS Code と GitHub アカウントを連携させておくと簡単です。
 
 このテンプレートは、以下のファイル配置となってます。
 
-```markdown
-.
-├── .gitignore
-├── README.md
-├── LICENSE.md
-├── master.tex         # メインファイル (subfileの親)
-├── template.sty       # 共通設定・パッケージ読み込み用
-├── references.bib     # 参考文献
-│
-├── chapter/
-    ├── 00_preface.tex
-    ├── 01_introduction.tex
-    │
-    └── figures/
-        └── example_figure.png
-```
+### コンパイル環境
 
-## 新しい章を追加する方法
+このテンプレートには、latexmk の設定ファイルとして `.latexmkrc` が同梱されています。
+
+このファイルには、以下の設定が記述されています。
+
+- コンパイラとして uplatex を使用します。
+- 文献引用処理（BibTeX）には upbibtex を使用します。
+- 生成されるPDF (`master.pdf`) やログファイル (`.log`, `.aux` など) は、すべて `out/` フォルダに出力されます。
+
+VS Code の拡張機能
+[LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
+をインストールして利用する場合、この `.latexmkrc` ファイルが自動的に読み込まれます。
+
+そのため、build レシピでlatexmkを呼び出すことにしていれば、
+`.tex`ファイルを編集して保存するだけで自動的にコンパイルが実行され、
+`out/master.pdf` が生成・更新されます。
+
 
 結局これはTeXファイルなので、`main.tex`にそのまま章を追加して本文を書いても問題はありません。
 
